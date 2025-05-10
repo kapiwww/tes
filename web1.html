@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffcce0;
+      overflow: hidden;
+    }
+    .container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff6699;
+      color: white;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .card {
+      padding: 30px;
+      border: 3px solid #ff66a3;
+      border-radius: 20px;
+      background-color: white;
+      position: relative;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .heart-particle {
+      position: absolute;
+      color: red;
+      font-size: 20px;
+      animation: floatUp 2s ease-in infinite;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+    }
+    #heart {
+      font-size: 100px;
+      cursor: pointer;
+      animation: heartbeat 1s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .cat-img {
+      width: 150px;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="scene">
+    <button onclick="nextScene()">coba tekan :]</button>
+    <img class="cat-img" src="https://placekitten.com/200/200" alt="Cute kitten">
+  </div>  <script>
+    let currentScene = 0;
+
+    function nextScene() {
+      currentScene++;
+      const scene = document.getElementById("scene");
+      scene.innerHTML = "";
+
+      if (currentScene === 1) {
+        showCard("aku? suka sama kamu?", "lanjut👉");
+      } else if (currentScene === 2) {
+        showCard("suka bet njir(jan asing y bg)🗿", "lanjut👉");
+      } else if (currentScene === 3) {
+        scene.innerHTML = `<h2 style="margin-bottom: 20px; color: #d1005c;">love you nisa :></h2>
+          <div id="heart" onclick="spawnHearts()">♥️</div>
+          <img class="cat-img" src="https://placekitten.com/200/200" alt="Cute kitten">`;
+      }
+    }
+
+    function showCard(text, btnText) {
+      const scene = document.getElementById("scene");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<h2>${text}</h2><br><button onclick="nextScene()">${btnText}</button><br><img class="cat-img" src="https://placekitten.com/200/200" alt="Cute kitten">`;
+      scene.appendChild(card);
+      spawnParticles(scene);
+    }
+
+    function spawnParticles(container) {
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart-particle";
+        heart.innerText = "♥";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+        heart.style.animationDelay = Math.random() * 2 + "s";
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+      }
+    }
+
+    function spawnHearts() {
+      const scene = document.getElementById("scene");
+      spawnParticles(scene);
+    }
+  </script></body>
+</html>
